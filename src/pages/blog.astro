@@ -1,0 +1,23 @@
+---
+import type { ArticleData } from "./dto/Blogs";
+
+let articles;
+try {
+  const response = await fetch(import.meta.env.VITE_STRAPI_API_END_POINT);
+  articles = await response.json();
+  console.log(articles)
+} catch (error) {
+  console.error('Error fetching articles:', error);
+}
+---
+
+<section>
+  {articles?.data.map((article: ArticleData) => (
+    <article>
+      <h2>{article.attributes.title}</h2>
+      <p>{article.attributes.content}</p>
+    </article>
+  ))}
+</section>
+
+
